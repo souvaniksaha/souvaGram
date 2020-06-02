@@ -9,10 +9,10 @@
        <div class="col-9">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h1>{{$user->username}}</h1>
-                 <a href="http://" class="btn">Add new Post</a>
+                 <a href="{{url('/p/create')}}" class="btn">Add new Post</a>
             </div>
             <div class="d-flex">
-                <div class="pr-5"><strong class="pr-2">143</strong>Posts</div>
+                <div class="pr-5"><strong class="pr-2">{{$user->posts->count()}}</strong>Posts</div>
                 <div class="pr-5"><strong class="pr-2">295</strong>followers</div>
                 <div class="pr-5"><strong class="pr-2">373</strong>following</div>
             </div>
@@ -22,15 +22,16 @@
        </div>
    </div>
    <div class="row pt-5">
-    <div class="col-4">
-       <img class="w-100" src="https://instagram.fccu1-1.fna.fbcdn.net/v/t51.2885-15/e35/93412068_523389278342508_9133098139496098277_n.jpg?_nc_ht=instagram.fccu1-1.fna.fbcdn.net&_nc_cat=100&_nc_ohc=w-210FfFc60AX8Ue6J-&oh=b9527882f219ce63e1d4234417fdb2de&oe=5ECC88AA" alt="">
-    </div>
-    <div class="col-4">
-        <img  class="w-100" src="https://instagram.fccu1-1.fna.fbcdn.net/v/t51.2885-15/e35/29716957_182739079020234_4600219550963728384_n.jpg?_nc_ht=instagram.fccu1-1.fna.fbcdn.net&_nc_cat=106&_nc_ohc=-l9zGLjs9_IAX_tsUkh&oh=3121c8a7b91d3ec920371931659fc365&oe=5ECDCFB9" alt="">
+
+     @foreach ($user->posts as $post)
+     <div class="col-4 pb-3">
+      <a href="{{url('/p/'.$post->id)}}">
+          <img class="w-100" src={{ URL::asset( 'storage/' . $post->image ) }} alt="">
+      </a>
+
      </div>
-     <div class="col-4">
-        <img  class="w-100" src="https://instagram.fccu1-1.fna.fbcdn.net/v/t51.2885-15/e35/29716957_182739079020234_4600219550963728384_n.jpg?_nc_ht=instagram.fccu1-1.fna.fbcdn.net&_nc_cat=106&_nc_ohc=-l9zGLjs9_IAX_tsUkh&oh=3121c8a7b91d3ec920371931659fc365&oe=5ECDCFB9" alt="">
-     </div>
+     @endforeach
+
 </div>
 </div>
 @endsection
