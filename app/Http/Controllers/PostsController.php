@@ -12,11 +12,11 @@ class PostsController extends Controller
 
         $this->middleware('auth');
     }
-    public function create()
-    {
-        return view('posts.create');
-    }
 
+   public function createPost(){
+
+       return view('posts.create');
+   }
 
     public function store(Request $request)
     {
@@ -34,9 +34,10 @@ class PostsController extends Controller
           for that we have to create symlink using-  php artisan storage:link*/
 
        $imagePath = $data['image']->store('uploads','public');
-        //Automatically insert user_id to post table
+
         $image = Image::make(public_path("storage/{$imagePath }"))->fit(1200,1200);
         $image->save();
+        //Automatically insert user_id to post table
         Auth::user()->posts()->create([
             'caption' =>$data['caption'],
             'image'  => $imagePath
